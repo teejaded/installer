@@ -240,6 +240,27 @@ spec:
     snapshotterPolicyName: mysql-snapshot
 
 ---
+apiVersion: catalog.kubedb.com/v1alpha1
+kind: MySQLVersion
+metadata:
+  name: "8.0.18"
+  labels:
+    {{- include "kubedb-catalog.labels" . | nindent 4 }}
+spec:
+  version: "8.0.18"
+  db:
+    image: "{{ .Values.dockerRegistry }}/mysql:8.0.18"
+  exporter:
+    image: "{{ .Values.dockerRegistry }}/mysqld-exporter:v0.11.0"
+  tools:
+    image: "{{ .Values.dockerRegistry }}/mysql-tools:8.0.18"
+  initContainer:
+    image: "{{ .Values.dockerRegistry }}/busybox"
+  podSecurityPolicies:
+    databasePolicyName: mysql-db
+    snapshotterPolicyName: mysql-snapshot
+
+---
 # After 0.11.0
 
 apiVersion: catalog.kubedb.com/v1alpha1
